@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var _ = require('lodash')
 
 var AptList = require('./src/AptList')
+var AddAppoinment = require('./src/AddAppoinment')
+
 
 var MainInterface = React.createClass({
     getInitialState: function () {
@@ -52,8 +54,11 @@ var MainInterface = React.createClass({
             )
         }.bind(this));
 
+        var formAppoinment = <AddAppoinment />
+
         return (
             <div className="interface">
+                {formAppoinment}
                 <ul className="item-list media-list">
                     {filteredApts}
                 </ul>
