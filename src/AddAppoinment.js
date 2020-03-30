@@ -1,10 +1,23 @@
 var React = require('react');
 
 var AddAppoinment = React.createClass({
+
+    toogleAptDisplay() {
+        this.props.handleToggle();
+    },
+
     render() {
+
+        var displayAptBody = {
+            display: this.props.bodyVisible ? 'block' : 'none'
+        };
+
         return (
             <div className="panel panel-primary">
-                <div className="panel-body">
+                <div className="panel-heading apt-addjeading" onClick={this.toogleAptDisplay}>
+                    <span className="glyphicon glyphicon-plus">Add Appointment</span>
+                </div>
+                <div className="panel-body" style={displayAptBody}>
                     <form className="add-appointment form-horizontal">
                         <div className="form-group">
                             <label className="col-sm-2 control-label" htmlFor="petName">Pet Name</label>

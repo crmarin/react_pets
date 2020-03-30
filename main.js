@@ -9,6 +9,7 @@ var AddAppoinment = require('./src/AddAppoinment')
 var MainInterface = React.createClass({
     getInitialState: function () {
         return {
+            aptBodyVisible: false,
             myAppointmets: []
         }
     },
@@ -39,8 +40,16 @@ var MainInterface = React.createClass({
         this.setState({
             myAppointmets: allApts
         });
-
     },
+
+    toogleAddDisplay() {
+        var tempVisibilyty = !this.state.aptBodyVisible;
+
+        this.setState({
+            aptBodyVisible: tempVisibilyty
+        });
+    },
+
 
     render: function () {
         var filteredApts = this.state.myAppointmets;
@@ -54,7 +63,9 @@ var MainInterface = React.createClass({
             )
         }.bind(this));
 
-        var formAppoinment = <AddAppoinment />
+        var formAppoinment = <AddAppoinment
+            bodyVisible = {this.state.aptBodyVisible}
+            handleToggle = {this.toogleAddDisplay} />
 
         return (
             <div className="interface">
