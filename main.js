@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var AptList = require('./src/AptList')
+
 var MainInterface = React.createClass({
     getInitialState: function () {
         return {
@@ -27,20 +29,9 @@ var MainInterface = React.createClass({
         var filteredApts = this.state.myAppointmets;
         filteredApts = filteredApts.map(function (item, index) {
             return (
-                <li className="pet-item media" key={index}>
-                    <div className="pet-info media-body">
-                        <div className="pet-head">
-                            <span className="pet-name">{this.state.myAppointmets[index].petName}</span>
-                            <span className="apt-date pull-right">{this.state.myAppointmets[index].aptDate}</span>
-                        </div>
-                        <div className="owner-name">
-                            <span className="label-item">Owner:</span>
-                            {this.state.myAppointmets[index].ownerName}
-                        </div>
-                        <div className="apt-notes">{this.state.myAppointmets[index].aptNotes}
-                        </div>
-                    </div>
-                </li>
+                <AptList
+                    key = {index}
+                    singleItem = {item} />
             )
         }.bind(this));
 
