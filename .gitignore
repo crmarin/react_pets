@@ -1,0 +1,5 @@
+.DS_Store
+node_modules
+.tmp
+/builds/app/js/app.js
+*.code-workspace
