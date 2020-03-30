@@ -50,6 +50,14 @@ var MainInterface = React.createClass({
         });
     },
 
+    addItem(tempApts){
+        var allApts = this.state.myAppointmets;
+        allApts.push(tempApts);
+
+        this.setState({
+            myAppointmets: allApts
+        });
+    },
 
     render: function () {
         var filteredApts = this.state.myAppointmets;
@@ -65,7 +73,8 @@ var MainInterface = React.createClass({
 
         var formAppoinment = <AddAppoinment
             bodyVisible = {this.state.aptBodyVisible}
-            handleToggle = {this.toogleAddDisplay} />
+            handleToggle = {this.toogleAddDisplay}
+            addApt = {this.addItem} />
 
         return (
             <div className="interface">
