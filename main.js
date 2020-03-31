@@ -4,7 +4,7 @@ var _ = require('lodash')
 
 var AptList = require('./src/AptList')
 var AddAppoinment = require('./src/AddAppoinment')
-
+var SearchAppoinments = require('./src/SearchAppoinments')
 
 var MainInterface = React.createClass({
     getInitialState: function () {
@@ -76,9 +76,12 @@ var MainInterface = React.createClass({
             handleToggle = {this.toogleAddDisplay}
             addApt = {this.addItem} />
 
+        var searchAppoinment = <SearchAppoinments />
+
         return (
             <div className="interface">
                 {formAppoinment}
+                {searchAppoinment}
                 <ul className="item-list media-list">
                     {filteredApts}
                 </ul>
