@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var _ = require('lodash')
+var _ = require('lodash');
 
 var AptList = require('./src/AptList')
 var AddAppoinment = require('./src/AddAppoinment')
@@ -10,6 +10,8 @@ var MainInterface = React.createClass({
     getInitialState: function () {
         return {
             aptBodyVisible: false,
+            orderBy: 'petName',
+            orderDir: 'asc',
             myAppointmets: []
         }
     },
@@ -31,14 +33,10 @@ var MainInterface = React.createClass({
 
     deleteMessage(item) {
         var allApts = this.state.myAppointmets;
-        for( var i = 0; i < allApts.length; i++){
-            if ( allApts[i] === item) {
-                allApts.splice(i, 1);
-            }
-        }
+        var newApts = _.without(allApts, item)
 
         this.setState({
-            myAppointmets: allApts
+            myAppointmets: newApts
         });
     },
 
@@ -50,7 +48,7 @@ var MainInterface = React.createClass({
         });
     },
 
-    addItem(tempApts){
+    addItem(tempApts) {
         var allApts = this.state.myAppointmets;
         allApts.push(tempApts);
 
@@ -59,8 +57,22 @@ var MainInterface = React.createClass({
         });
     },
 
+    reOrder(orderBy, orderDir){
+        this.setState({
+            orderBy: orderBy,
+            orderDir: orderDir,
+        });
+    },
+
     render: function () {
         var filteredApts = this.state.myAppointmets;
+        var orderBy = this.state.orderBy;
+        var orderDir = this.state.orderDir;
+
+        filteredApts = _.orderBy(filteredApts, function (item) {
+            return item[orderBy].toLowerCase();
+        }, orderDir);//orderBy
+
         filteredApts = filteredApts.map(function (item, index) {
             return (
                 <AptList
@@ -72,11 +84,15 @@ var MainInterface = React.createClass({
         }.bind(this));
 
         var formAppoinment = <AddAppoinment
-            bodyVisible = {this.state.aptBodyVisible}
-            handleToggle = {this.toogleAddDisplay}
-            addApt = {this.addItem} />
+            bodyVisible={this.state.aptBodyVisible}
+            handleToggle={this.toogleAddDisplay}
+            addApt={this.addItem} />
 
-        var searchAppoinment = <SearchAppoinments />
+        var searchAppoinment = <SearchAppoinments
+            orderBy={this.state.orderBy}
+            orderDir={this.state.orderDir}
+            onReorder={this.reOrder}
+        />
 
         return (
             <div className="interface">
