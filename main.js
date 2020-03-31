@@ -12,6 +12,7 @@ var MainInterface = React.createClass({
             aptBodyVisible: false,
             orderBy: 'petName',
             orderDir: 'asc',
+            queryText: '',
             myAppointmets: []
         }
     },
@@ -46,6 +47,7 @@ var MainInterface = React.createClass({
         this.setState({
             aptBodyVisible: tempVisibilyty
         });
+
     },
 
     addItem(tempApts) {
@@ -57,17 +59,36 @@ var MainInterface = React.createClass({
         });
     },
 
-    reOrder(orderBy, orderDir){
+    reOrder(orderBy, orderDir) {
         this.setState({
             orderBy: orderBy,
             orderDir: orderDir,
         });
     },
 
+    searchApts(qry) {
+        this.setState({
+            queryText: qry
+        })
+    },
+
     render: function () {
-        var filteredApts = this.state.myAppointmets;
+        var filteredApts = [];
         var orderBy = this.state.orderBy;
         var orderDir = this.state.orderDir;
+        var queryText = this.state.queryText;
+        var myAppointments = this.state.myAppointmets;
+
+        myAppointments.forEach(function (item) {
+            if (
+                (item.petName.toLowerCase().indexOf(queryText) != -1) ||
+                (item.ownerName.toLowerCase().indexOf(queryText) != -1) ||
+                (item.aptDate.toLowerCase().indexOf(queryText) != -1) ||
+                (item.aptNotes.toLowerCase().indexOf(queryText) != -1)
+            ) {
+                filteredApts.push(item);
+            }
+        }); //forEach
 
         filteredApts = _.orderBy(filteredApts, function (item) {
             return item[orderBy].toLowerCase();
@@ -92,6 +113,7 @@ var MainInterface = React.createClass({
             orderBy={this.state.orderBy}
             orderDir={this.state.orderDir}
             onReorder={this.reOrder}
+            onSearch={this.searchApts}
         />
 
         return (

@@ -2,13 +2,17 @@ var React = require('react');
 
 var SearchAppoinments = React.createClass({
 
-    handleSort(e){
+    handleSort(e) {
         this.props.onReorder(e.target.id, this.props.orderDir);
     },
 
-    handleOrder(e){
+    handleOrder(e) {
         this.props.onReorder(this.props.orderBy, e.target.id);
 
+    },
+
+    handleSearch(e) {
+        this.props.onSearch(e.target.value);
     },
 
     render() {
@@ -16,7 +20,7 @@ var SearchAppoinments = React.createClass({
             <div className="row search-appointments">
                 <div className="col-sm-offset-3 col-sm-6">
                     <div className="input-group">
-                        <input id="SearchApts" placeholder="Search" type="text" className="form-control" aria-label="Search Appointments" />
+                        <input id="SearchApts" onChange={this.handleSearch} placeholder="Search" type="text" className="form-control" aria-label="Search Appointments" />
                         <div className="input-group-btn">
                             <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by: <span className="caret"></span></button>
                             <ul className="dropdown-menu dropdown-menu-right">
