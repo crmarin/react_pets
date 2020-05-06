@@ -3,6 +3,7 @@ const { db } = require('../util/admin');
 exports.getAllTodos = (request, response) => {
     db
         .collection('todos')
+        .where('username', '==', request.user.username)
         .orderBy('createdAt', 'desc')
         .get()
         .then((data) => {
@@ -23,6 +24,30 @@ exports.getAllTodos = (request, response) => {
         });
 };
 
+exports.getOneTodo = (request, response) => {
+    db
+        .doc(`/todos/${request.params.todoId}`)
+        .get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return response.status(404).json(
+                    {
+                        error: 'Todo not found'
+                    });
+            }
+            if (doc.data().username !== request.user.username) {
+                return response.status(403).json({ error: "UnAuthorized" })
+            }
+            TodoData = doc.data();
+            TodoData.todoId = doc.id;
+            return response.json(TodoData);
+        })
+        .catch((err) => {
+            console.error(err);
+            return response.status(500).json({ error: error.code });
+        });
+};
+
 exports.postOneTodo = (request, response) => {
     if (request.body.body.trim() === '') {
         return response.status(400).json({ body: 'Must not be empty' });
@@ -34,6 +59,7 @@ exports.postOneTodo = (request, response) => {
 
     const newTodoItem = {
         title: request.body.title,
+        username: request.user.username,
         body: request.body.body,
         createdAt: new Date().toISOString()
     }
