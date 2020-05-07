@@ -1,28 +1,40 @@
 {
-  "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.4.0",
-    "lodash": "^4.13.1",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "reactify": "^1.1.1",
-    "style-loader": "^1.1.2",
-    "webpack": "^4.41.4",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
-  },
+  "name": "view",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "babel": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "express": "^4.17.1",
-    "path": "^0.12.7"
+    "@material-ui/core": "^4.9.13",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "dayjs": "^1.8.23",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "webpack --mode=development",
-    "build": "webpack --mode=production",
-    "dev-server": "webpack-dev-server"
-  }
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "https://us-central1-todoapp-df6df.cloudfunctions.net/api"
 }
